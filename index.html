@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vulox IPTV Player - Kullanım Koşulları ve Gizlilik Politikası</title>
+  <meta name="description" content="Vulox IPTV Player resmi Kullanım Koşulları (Terms of Service) ve Gizlilik Politikası (Privacy Policy).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0d14;
+      --card-bg: rgba(18, 24, 38, 0.82);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-active: rgba(59, 130, 246, 0.5);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent-cyan: #06b6d4;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+    }
+
+    .brand-logo svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: var(--primary);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 36px 24px 64px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #93c5fd;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Tab Switcher */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid var(--card-border);
+      padding: 6px;
+      border-radius: 14px;
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      font-family: inherit;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    /* Content Cards */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 14px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .icon-gold { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .icon-cyan { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+    .icon-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .icon-red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .card-body p {
+      color: #cbd5e1;
+      font-size: 14.5px;
+      margin-bottom: 14px;
+    }
+
+    .card-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-body ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 14px 0;
+    }
+
+    .card-body ul li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    .card-body ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    .alert-box {
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fde68a;
+    }
+
+    .alert-danger {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #a7f3d0;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #93c5fd;
+      font-weight: 600;
+    }
+
+    td {
+      color: #cbd5e1;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      background: rgba(10, 13, 20, 0.95);
+      padding: 32px 24px;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .contact-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .contact-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      .hero-title { font-size: 24px; }
+      .card { padding: 20px; }
+      .nav-tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="#0F172A"/>
+            <path d="M8 8 L16 24 L24 8" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 14 L22 14" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">Vulox IPTV Player</div>
+          <div class="brand-subtitle">Resmi Yasal Bilgilendirme</div>
+        </div>
+      </a>
+      <div class="header-actions">
+        <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">
+          <span id="langFlag">🌐</span> <span id="langLabel">English</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div class="hero-badge">
+        <span>🛡️</span> <span id="badgeText">Google Play & Yasal Uyumluluk Bildirgesi</span>
+      </div>
+      <h1 class="hero-title" id="pageMainTitle">Kullanım Koşulları ve Gizlilik Politikası</h1>
+      <p class="hero-desc" id="pageMainDesc">
+        Vulox IPTV Player, kullanıcıların kendi yasal içeriklerini oynatabilmeleri için geliştirilmiş bağımsız bir medya oynatıcıdır. Uygulamayı kullanarak aşağıdaki şartları kabul etmiş sayılırsınız.
+      </p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs" role="tablist">
+      <button class="tab-btn active" id="tabTermsBtn" onclick="switchTab('terms')">
+        📜 <span id="tabTermsLabel">Kullanım Koşulları (Terms of Service)</span>
+      </button>
+      <button class="tab-btn" id="tabPrivacyBtn" onclick="switchTab('privacy')">
+        🔒 <span id="tabPrivacyLabel">Gizlilik Politikası (Privacy Policy)</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: TERMS OF SERVICE (KULLANIM KOŞULLARI) -->
+    <div id="section-terms" class="content-section active">
+
+      <!-- TR Terms -->
+      <div class="lang-tr">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-blue">📋</div>
+            <h2 class="card-title">1. Giriş ve Şartların Kabulü</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Vulox IPTV Player uygulamasını ("Uygulama") indirerek, kurarak veya kullanarak bu Kullanım Koşulları'nı ("Koşullar") tamamen okuduğunuzu, anladığınızı ve kabul ettiğinizi beyan etmiş olursunuz.
+            </p>
+            <p>
+              Bu koşulları kabul etmiyorsanız lütfen uygulamayı cihazınızdan kaldırınız ve kullanmayınız. Geliştirici, bu koşulları dilediği zaman güncelleme hakkını saklı tutar.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-gold">⚠️</div>
+            <h2 class="card-title">2. Medya Oynatıcı Beyanı (İçerik Sağlamama İlkesi)</h2>
+          </div>
+          <div class="card-body">
+            <div class="alert-box alert-warning">
+              <strong>ÖNEMLİ YASAL BİLDİRİM:</strong> Vulox IPTV Player kesinlikle hiçbir canlı yayın, TV kanalı, video, ses veya film içeriği barındırmaz, sağlamaz, satmaz veya yayınlamaz!
+            </div>
+            <ul>
+              <li><strong>Yalnızca Oynatıcı:</strong> Uygulama, tıpkı VLC veya Windows Media Player gibi kullanıcının sağladığı M3U/M3U8 çalma listelerini veya Xtream Codes API bağlantılarını ayrıştıran ve oynatan bağımsız bir araçtır.</li>
+              <li><strong>Bağlantısızlık:</strong> Vulox'un hiçbir IPTV sağlayıcısı, sunucu operatörü, TV kanalı veya yayın kuruluşu ile ortaklığı, ilişkisi veya sponsorluğu yoktur.</li>
+              <li><strong>Kullanıcı Sorumluluğu:</strong> Uygulamaya eklenen tüm bağlantıların ve izlenen içeriklerin yasal sorumluluğu tamamen içeriği ekleyen kullanıcıya aittir.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-red">🚫</div>
+            <h2 class="card-title">3. Telif Hakları ve Korsan Yayın Yasağı</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Vulox, fikri mülkiyet ve telif haklarına sonuna kadar saygı duyar ve korsan yayıncılığa sıfır tolerans gösterir:
+            </p>
+            <ul>
+              <li>Uygulama, yalnızca kullanıcının izleme hakkına, lisansına veya yasal aboneliğine sahip olduğu akışlar için kullanılmalıdır.</li>
+              <li>Telif hakkı sahibinin açık izni olmadan şifreli, ücretli veya telif hakkına tabi materyallerin izlenmesi amacıyla kullanılamaz.</li>
+              <li>Herhangi bir telif hakkı ihlali şüphesi durumunda kullanıcılar ilgili içerik sağlayıcı ile iletişime geçmelidir. Vulox sunucularında içerik barındırılmadığı için herhangi bir yayını durdurma veya engelleme teknik imkânı bulunmamaktadır.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-cyan">⚖️</div>
+            <h2 class="card-title">4. Garanti Reddi ve Sorumluluk Sınırı ("OLDUĞU GİBİ")</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Uygulama, yürürlükteki kanunların izin verdiği azami ölçüde <strong>"OLDUĞU GİBİ" (AS-IS)</strong> ve <strong>"MEVCUT OLDUĞU ŞEKİLDE" (AS-AVAILABLE)</strong> sunulmaktadır.
+            </p>
+            <p>
+              Geliştirici; kullanıcı tarafından sağlanan akışların kesintisizliği, kalitesi, ses/video senkronizasyonu veya üçüncü taraf sunucuların çalışırlığı konusunda hiçbir garanti vermez. Üçüncü taraf yayın kaynaklarının çökmesi veya çalışmamasından Vulox sorumlu tutulamaz.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EN Terms -->
+      <div class="lang-en" style="display:none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-blue">📋</div>
+            <h2 class="card-title">1. Acceptance of Terms</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              By downloading, installing, or using Vulox IPTV Player ("the Application"), you acknowledge that you have read, understood, and agreed to be bound by these Terms of Service.
+            </p>
+            <p>
+              If you do not agree with any part of these Terms, you must not use or install the Application.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-gold">⚠️</div>
+            <h2 class="card-title">2. Nature of the App (No Content Provided Disclaimer)</h2>
+          </div>
+          <div class="card-body">
+            <div class="alert-box alert-warning">
+              <strong>CRITICAL LEGAL DISCLAIMER:</strong> Vulox IPTV Player does NOT host, supply, distribute, broadcast, or sell any media streams, channels, playlists, or content!
+            </div>
+            <ul>
+              <li><strong>Standalone Player:</strong> Vulox functions strictly as a multimedia player engine (similar to VLC) that parses and renders streams provided directly by the user via M3U/M3U8 URLs or Xtream Codes API.</li>
+              <li><strong>No Affiliation:</strong> Vulox has no affiliation, partnership, endorsement, or contractual relationship with any IPTV providers or broadcast networks.</li>
+              <li><strong>Sole User Responsibility:</strong> You are solely responsible for ensuring that any content you add to or play through the Application complies with all applicable local, national, and international laws.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-red">🚫</div>
+            <h2 class="card-title">3. Copyright & Anti-Piracy Policy</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              We fully respect intellectual property and maintain zero tolerance for illegal piracy:
+            </p>
+            <ul>
+              <li>The Application must only be used with content you legally own or are authorized to access.</li>
+              <li>Streaming unauthorized copyrighted material is strictly prohibited.</li>
+              <li>Because Vulox hosts no content and operates strictly client-side, any copyright claims should be directed to the third-party server hosting the stream.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-cyan">⚖️</div>
+            <h2 class="card-title">4. Limitation of Liability & "AS IS" Warranty</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              The Application is provided "AS IS" and "AS AVAILABLE" without warranty of any kind. Under no circumstances shall the developer be liable for damages resulting from third-party streams, server downtime, or loss of service.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: PRIVACY POLICY (GİZLİLİK POLİTİKASI) -->
+    <div id="section-privacy" class="content-section">
+
+      <!-- TR Privacy -->
+      <div class="lang-tr">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-green">🛡️</div>
+            <h2 class="card-title">1. Sıfır Veri Toplama Politikamız</h2>
+          </div>
+          <div class="card-body">
+            <div class="alert-box alert-success">
+              <strong>GİZLİLİK GARANTİSİ:</strong> Vulox IPTV Player, gizliliğinize en üst düzeyde değer verir. Kişisel bilgilerinizi, izleme geçmişinizi veya çalma listelerinizi hiçbir uzak sunucuya aktarmayız.
+            </div>
+            <p>
+              Uygulamamız kullanıcı verisi toplamayan bir mimari üzerine kurulmuştur:
+            </p>
+            <ul>
+              <li><strong>Çalma Listeleriniz:</strong> Eklediğiniz M3U linkleri ve Xtream hesap bilgileri yalnızca cihazınızın dahili SharedPreferences hafızasında şifreli/güvenli olarak yerel saklanır.</li>
+              <li><strong>İzleme Geçmişi:</strong> Son izlenen kanallar ve favori listeleriniz yalnızca cihazınızda depolanır; sunucularımıza veya üçüncü şahıslara iletilmez.</li>
+              <li><strong>Kullanıcı Hesabı Yok:</strong> Vulox'u kullanmak için e-posta, telefon numarası veya isim gibi hiçbir kayıt gerekmez.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-cyan">📱</div>
+            <h2 class="card-title">2. Uygulama İzinleri ve Kullanım Amaçları</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Vulox IPTV Player, yalnızca video ve ses oynatma işlevlerini gerçekleştirebilmek için gerekli minimum Android izinlerini talep eder:
+            </p>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>İzin</th>
+                    <th>Kullanım Amacı</th>
+                    <th>Veri Aktarımı</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>INTERNET</code></td>
+                    <td>Kullanıcının girdiği kanal akışlarını oynatmak ve logoları çekmek için</td>
+                    <td>Yalnızca doğrudan ilgili yayın sunucusuna bağlanır</td>
+                  </tr>
+                  <tr>
+                    <td><code>WAKE_LOCK</code></td>
+                    <td>Video oynatılırken ekranın otomatik olarak kapanmasını engellemek için</td>
+                    <td>Hiçbir veri toplanmaz</td>
+                  </tr>
+                  <tr>
+                    <td><code>READ_MEDIA_VIDEO / AUDIO</code></td>
+                    <td>Kullanıcı yerel depolamasından bir M3U dosyası seçerse bu dosyayı okumak için</td>
+                    <td>Yalnızca yerel cihazda işlenir</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-gold">👶</div>
+            <h2 class="card-title">3. Çocukların Gizliliği (COPPA Uyumluluğu)</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Uygulamamız 13 yaşın altındaki çocuklardan bilerek hiçbir kişisel veri toplamaz. Uygulama tamamen genel bir medya oynatıcı olup çocuklara yönelik zararlı herhangi bir içerik içermez veya sunmaz.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-blue">🔄</div>
+            <h2 class="card-title">4. Politika Değişiklikleri</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Bu Gizlilik Politikası zaman zaman güncellenebilir. Güncel metin her zaman bu web sayfası üzerinden erişilebilir olacaktır. Değişiklikler yayınlandığı andan itibaren geçerlilik kazanır.
+            </p>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 10px;">
+              Son Güncelleme: 22 Ekim 2026
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EN Privacy -->
+      <div class="lang-en" style="display:none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-green">🛡️</div>
+            <h2 class="card-title">1. Zero Personal Data Collection Policy</h2>
+          </div>
+          <div class="card-body">
+            <div class="alert-box alert-success">
+              <strong>PRIVACY COMMITMENT:</strong> Vulox IPTV Player respects your privacy. We do not collect, transmit, store, or sell any personal data, viewing habits, or playlists.
+            </div>
+            <ul>
+              <li><strong>Playlists & Credentials:</strong> Any M3U links, Xtream Codes, or media files you import are stored exclusively in your device's local storage.</li>
+              <li><strong>Viewing History:</strong> Your recent channels and favorites remain strictly on your device.</li>
+              <li><strong>No Accounts Required:</strong> No registration, email, or telephone number is requested to use the App.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-cyan">📱</div>
+            <h2 class="card-title">2. Required App Permissions</h2>
+          </div>
+          <div class="card-body">
+            <p>We request only the minimum required Android permissions to play media:</p>
+            <ul>
+              <li><code>INTERNET</code>: To fetch streaming data and logos directly from your specified servers.</li>
+              <li><code>WAKE_LOCK</code>: To prevent the screen from turning off during video playback.</li>
+              <li><code>LOCAL STORAGE</code>: To open local M3U playlist files if selected by you.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-gold">👶</div>
+            <h2 class="card-title">3. Children's Privacy</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              We do not knowingly collect or solicit personal information from children under 13.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-blue">🔄</div>
+            <h2 class="card-title">4. Changes to This Policy</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              This Privacy Policy may be updated periodically. The latest version will always be posted here.
+            </p>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 10px;">
+              Last Updated: October 22, 2026
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Contact Box -->
+    <div class="contact-card">
+      <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px;" id="contactTitle">
+        Sorularınız veya Destek İçin
+      </h3>
+      <p style="color: var(--text-muted); font-size: 14px; max-width: 540px; margin: 0 auto;" id="contactDesc">
+        Kullanım koşulları, telif hakkı bildirimleri veya gizlilik politikamızla ilgili herhangi bir sorunuz varsa bize e-posta yoluyla ulaşabilirsiniz.
+      </p>
+      <a href="mailto:yahyaemirbaysal2013@gmail.com?subject=Vulox%20IPTV%20Player%20Destek" class="contact-btn">
+        ✉️ <span id="contactBtnText">Bize Ulaşın: yahyaemirbaysal2013@gmail.com</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="javascript:void(0)" onclick="switchTab('terms')">Kullanım Koşulları</a>
+        <span>•</span>
+        <a href="javascript:void(0)" onclick="switchTab('privacy')">Gizlilik Politikası</a>
+        <span>•</span>
+        <a href="mailto:yahyaemirbaysal2013@gmail.com">İletişim</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 Vulox IPTV Player. Tüm hakları saklıdır. Bağımsız Medya Oynatıcısı.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tr';
+
+    function switchTab(tabName) {
+      const termsSection = document.getElementById('section-terms');
+      const privacySection = document.getElementById('section-privacy');
+      const tabTermsBtn = document.getElementById('tabTermsBtn');
+      const tabPrivacyBtn = document.getElementById('tabPrivacyBtn');
+
+      if (tabName === 'privacy') {
+        termsSection.classList.remove('active');
+        privacySection.classList.add('active');
+        tabTermsBtn.classList.remove('active');
+        tabPrivacyBtn.classList.add('active');
+        window.location.hash = 'privacy';
+      } else {
+        privacySection.classList.remove('active');
+        termsSection.classList.add('active');
+        tabPrivacyBtn.classList.remove('active');
+        tabTermsBtn.classList.add('active');
+        window.location.hash = 'terms';
+      }
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'tr' ? 'en' : 'tr';
+      applyLanguage(currentLang);
+    }
+
+    function applyLanguage(lang) {
+      const trElements = document.querySelectorAll('.lang-tr');
+      const enElements = document.querySelectorAll('.lang-en');
+      const langLabel = document.getElementById('langLabel');
+      const pageMainTitle = document.getElementById('pageMainTitle');
+      const pageMainDesc = document.getElementById('pageMainDesc');
+      const badgeText = document.getElementById('badgeText');
+      const tabTermsLabel = document.getElementById('tabTermsLabel');
+      const tabPrivacyLabel = document.getElementById('tabPrivacyLabel');
+      const contactTitle = document.getElementById('contactTitle');
+      const contactDesc = document.getElementById('contactDesc');
+      const contactBtnText = document.getElementById('contactBtnText');
+
+      if (lang === 'en') {
+        trElements.forEach(el => el.style.display = 'none');
+        enElements.forEach(el => el.style.display = 'block');
+        langLabel.textContent = 'Türkçe';
+        badgeText.textContent = 'Google Play & Legal Compliance Declaration';
+        pageMainTitle.textContent = 'Terms of Service & Privacy Policy';
+        pageMainDesc.textContent = 'Vulox IPTV Player is an independent media player engine for playback of user-provided content. By using the app, you agree to these terms.';
+        tabTermsLabel.textContent = 'Terms of Service';
+        tabPrivacyLabel.textContent = 'Privacy Policy';
+        contactTitle.textContent = 'Questions or Inquiries?';
+        contactDesc.textContent = 'If you have any questions regarding our terms, copyright compliance, or privacy practices, feel free to contact us.';
+        contactBtnText.textContent = 'Contact Us: yahyaemirbaysal2013@gmail.com';
+      } else {
+        enElements.forEach(el => el.style.display = 'none');
+        trElements.forEach(el => el.style.display = 'block');
+        langLabel.textContent = 'English';
+        badgeText.textContent = 'Google Play & Yasal Uyumluluk Bildirgesi';
+        pageMainTitle.textContent = 'Kullanım Koşulları ve Gizlilik Politikası';
+        pageMainDesc.textContent = 'Vulox IPTV Player, kullanıcıların kendi yasal içeriklerini oynatabilmeleri için geliştirilmiş bağımsız bir medya oynatıcıdır. Uygulamayı kullanarak aşağıdaki şartları kabul etmiş sayılırsınız.';
+        tabTermsLabel.textContent = 'Kullanım Koşulları (Terms of Service)';
+        tabPrivacyLabel.textContent = 'Gizlilik Politikası (Privacy Policy)';
+        contactTitle.textContent = 'Sorularınız veya Destek İçin';
+        contactDesc.textContent = 'Kullanım koşulları, telif hakkı bildirimleri veya gizlilik politikamızla ilgili herhangi bir sorunuz varsa bize e-posta yoluyla ulaşabilirsiniz.';
+        contactBtnText.textContent = 'Bize Ulaşın: yahyaemirbaysal2013@gmail.com';
+      }
+    }
+
+    // Handle hash on load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.location.hash === '#privacy') {
+        switchTab('privacy');
+      } else {
+        switchTab('terms');
+      }
+    });
+  </script>
+</body>
+</html>
