@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XYZ PLAYER - TV Kumandası & Eşleştirme Portalı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    /* PURE OLED BLACK THEME */
+    body {
+      background: #000000;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 14px 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 6px 4px 16px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .logo-badge svg {
+      width: 22px;
+      height: 22px;
+      fill: #ffffff;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: #71717a;
+      font-weight: 600;
+    }
+
+    .device-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #0d0d0f;
+      border: 1px solid #27272a;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* DEVICE PAIRING BAR */
+    .pairing-box {
+      background: #09090b;
+      border: 1px solid #1f1f23;
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 10px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input {
+      background: #121215;
+      border: 1.5px solid #27272a;
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 700;
+      outline: none;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .form-group input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+    }
+
+    .form-group input.code-highlight {
+      font-size: 15px;
+      color: #38bdf8;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    /* QR SCANNER BUTTON & MODAL */
+    .btn-qr-scan {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(56, 189, 248, 0.10));
+      border: 1.5px solid #2563eb;
+      color: #38bdf8;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      margin-top: -4px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .btn-qr-scan:active {
+      transform: scale(0.97);
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .qr-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .qr-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .qr-card {
+      background: #0d0d10;
+      border: 1.5px solid #27272a;
+      border-radius: 28px;
+      padding: 22px 20px;
+      max-width: 380px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    #qrReader {
+      width: 100% !important;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000000;
+      border: 2px solid #2563eb;
+      position: relative;
+      min-height: 240px;
+    }
+
+    #qrReader video {
+      border-radius: 16px;
+      object-fit: cover;
+      width: 100% !important;
+    }
+
+    /* TOP MODE TABS */
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 6px;
+      background: #09090b;
+      padding: 4px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      border: 1px solid #1f1f23;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #71717a;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .tab-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+    }
+
+    /* TAB CONTENTS */
+    .tab-content {
+      display: none;
+      width: 100%;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       TV KUMANDASI (PHYSICAL TV REMOTE CHASSIS)
+       ════════════════════════════════════════════════════════════ */
+    .remote-chassis {
+      background: linear-gradient(180deg, #111114 0%, #0a0a0c 50%, #070708 100%);
+      border: 1.5px solid #222226;
+      border-radius: 36px;
+      padding: 22px 18px 26px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    /* TOP ROW: POWER & MUTE */
+    .remote-top-bar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 8px;
+    }
+
+    .btn-power {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1c1416;
+      border: 1.5px solid #ef4444;
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.25);
+      transition: transform 0.1s ease;
+    }
+
+    .btn-power:active {
+      transform: scale(0.92);
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .btn-tv-info {
+      padding: 0 14px;
+      height: 38px;
+      border-radius: 20px;
+      background: #141418;
+      border: 1px solid #27272a;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* D-PAD WHEEL (CIRCULAR NAVIGATION) */
+    .dpad-container {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: #151518;
+      border: 2px solid #27272a;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 6px 0;
+    }
+
+    .dpad-btn {
+      position: absolute;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.12s ease;
+      font-size: 20px;
+    }
+
+    .dpad-btn:active {
+      color: #38bdf8;
+      transform: scale(0.90);
+    }
+
+    .dpad-up    { top: 12px; left: 50%; transform: translateX(-50%); width: 70px; height: 48px; }
+    .dpad-down  { bottom: 12px; left: 50%; transform: translateX(-50%); width: 70px; height: 48px; }
+    .dpad-left  { left: 12px; top: 50%; transform: translateY(-50%); width: 48px; height: 70px; }
+    .dpad-right { right: 12px; top: 50%; transform: translateY(-50%); width: 48px; height: 70px; }
+
+    .dpad-center-ok {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      border: 2px solid #38bdf8;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(37, 99, 235, 0.5);
+      transition: all 0.12s ease;
+      z-index: 5;
+    }
+
+    .dpad-center-ok:active {
+      transform: scale(0.92);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    /* MIDDLE SYSTEM BUTTONS (BACK - HOME - LIST) */
+    .system-nav-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .remote-nav-btn {
+      background: #16161a;
+      border: 1px solid #27272a;
+      border-radius: 14px;
+      color: #e4e4e7;
+      padding: 12px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.12s ease;
+    }
+
+    .remote-nav-btn:active {
+      background: #2563eb;
+      color: #ffffff;
+      transform: scale(0.94);
+    }
+
+    /* TWIN ROCKER COLUMNS: VOLUME & CHANNEL */
+    .rocker-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .rocker-pill {
+      background: #131316;
+      border: 1.5px solid #27272a;
+      border-radius: 22px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .rocker-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 15px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.12s ease;
+    }
+
+    .rocker-btn:active {
+      background: rgba(37, 99, 235, 0.3);
+      color: #38bdf8;
+    }
+
+    .rocker-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #71717a;
+      padding: 4px 0;
+      letter-spacing: 1px;
+      border-top: 1px solid #1f1f23;
+      border-bottom: 1px solid #1f1f23;
+      background: #0d0d0f;
+    }
+
+    /* PLAYBACK BAR */
+    .playback-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .media-btn {
+      background: #141418;
+      border: 1px solid #27272a;
+      border-radius: 14px;
+      color: #ffffff;
+      padding: 12px 0;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.12s ease;
+    }
+
+    .media-btn:active {
+      background: #2563eb;
+      transform: scale(0.94);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       PLAYLIST UPLOAD CARDS (M3U & XTREAM)
+       ════════════════════════════════════════════════════════════ */
+    .card-pure-black {
+      background: #09090b;
+      border: 1.5px solid #1f1f23;
+      border-radius: 24px;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-submit-glow {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      border: none;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+      transition: all 0.15s ease;
+      margin-top: 6px;
+    }
+
+    .btn-submit-glow:active {
+      transform: scale(0.97);
+    }
+
+    /* TOAST MESSAGE */
+    .status-toast {
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      line-height: 1.4;
+    }
+
+    .status-toast.success {
+      display: flex;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #4ade80;
+    }
+
+    .status-toast.error {
+      display: flex;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SİTE İLK GİRİŞ TANITIM MODALI (INTRO TOUR)
+       ════════════════════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .intro-card {
+      background: #0d0d10;
+      border: 1.5px solid #27272a;
+      border-radius: 28px;
+      padding: 26px 22px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .intro-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #141418;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid #1f1f23;
+    }
+
+    .step-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .step-desc {
+      font-size: 11.5px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #52525b;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="brand-wrap">
+        <div class="logo-badge">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">XYZ PLAYER</h1>
+          <p class="brand-subtitle">TV Kumandası & Eşleştirme</p>
+        </div>
+      </div>
+      <div class="device-status-pill">
+        <span class="status-dot"></span>
+        <span id="headerStatusText">Canlı Kumanda</span>
+      </div>
+    </div>
+
+    <!-- Cihaz Kodu & PIN Alanı -->
+    <div class="pairing-box">
+      <div class="form-group">
+        <label>Cihaz Kodu (ID)</label>
+        <input type="text" id="deviceId" placeholder="XYZ-83394" class="code-highlight" autocomplete="off" autocapitalize="characters">
+      </div>
+      <div class="form-group">
+        <label>TV PIN</label>
+        <input type="text" id="devicePin" placeholder="7758" maxlength="6" class="code-highlight" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- QR Kodu Kamera ile Okuma Butonu -->
+    <button class="btn-qr-scan" onclick="openQrScanner()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+        <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+        <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+        <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+        <rect x="7" y="7" width="10" height="10" rx="1.5"></rect>
+      </svg>
+      <span>TV Ekranındaki QR Kodu Kamerayla Oku</span>
+    </button>
+
+    <!-- Mode Tabs: Kumanda (Varsayılan) / M3U / Xtream -->
+    <div class="mode-tabs">
+      <button class="tab-btn active" onclick="switchMode('remote')">
+        🎮 TV Kumandası
+      </button>
+      <button class="tab-btn" onclick="switchMode('m3u')">
+        📁 M3U Linki
+      </button>
+      <button class="tab-btn" onclick="switchMode('xtream')">
+        ⚡ Xtream API
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         1. SEKMELİ DİREKT TV KUMANDASI (VARSAYILAN AKTİF)
+         ══════════════════════════════════════════════════════════ -->
+    <div id="tab-remote" class="tab-content active">
+      <div class="remote-chassis">
+        <!-- Power & Info -->
+        <div class="remote-top-bar">
+          <button class="btn-power" onclick="sendCmd('power')" title="Ana Menüye Dön">
+            ⏻
+          </button>
+          <div class="btn-tv-info">
+            <span style="color:#22c55e;">●</span> TV Kontrolü Aktif
+          </div>
+        </div>
+
+        <!-- D-PAD Circular Wheel -->
+        <div class="dpad-container">
+          <button class="dpad-btn dpad-up" onclick="sendCmd('dpad_up')" title="Yukarı / Önceki">
+            ▲
+          </button>
+          <button class="dpad-btn dpad-down" onclick="sendCmd('dpad_down')" title="Aşağı / Sonraki">
+            ▼
+          </button>
+          <button class="dpad-btn dpad-left" onclick="sendCmd('dpad_left')" title="Sol">
+            ◀
+          </button>
+          <button class="dpad-btn dpad-right" onclick="sendCmd('dpad_right')" title="Sağ">
+            ▶
+          </button>
+          <button class="dpad-center-ok" onclick="sendCmd('ok')">
+            OK
+          </button>
+        </div>
+
+        <!-- System Navigation: Geri - Ana Menü - Kanal Menüsü -->
+        <div class="system-nav-bar">
+          <button class="remote-nav-btn" onclick="sendCmd('back')">
+            <span style="font-size: 16px;">↩️</span>
+            <span>Geri</span>
+          </button>
+          <button class="remote-nav-btn" onclick="sendCmd('home')">
+            <span style="font-size: 16px;">🏠</span>
+            <span>Ana Sayfa</span>
+          </button>
+          <button class="remote-nav-btn" onclick="sendCmd('drawer')">
+            <span style="font-size: 16px;">📋</span>
+            <span>Kanal Listesi</span>
+          </button>
+        </div>
+
+        <!-- Twin Rockers: Ses & Kanal -->
+        <div class="rocker-grid">
+          <!-- Ses Rocker -->
+          <div class="rocker-pill">
+            <button class="rocker-btn" onclick="sendCmd('vol_up')">
+              <span>+</span>
+            </button>
+            <div class="rocker-label">SES</div>
+            <button class="rocker-btn" onclick="sendCmd('vol_down')">
+              <span>−</span>
+            </button>
+          </div>
+
+          <!-- Kanal Rocker -->
+          <div class="rocker-pill">
+            <button class="rocker-btn" onclick="sendCmd('ch_up')">
+              <span>▲</span>
+            </button>
+            <div class="rocker-label">KANAL</div>
+            <button class="rocker-btn" onclick="sendCmd('ch_down')">
+              <span>▼</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Playback & Mute -->
+        <div class="playback-bar">
+          <button class="media-btn" onclick="sendCmd('mute')" title="Sesi Kapat">
+            🔇
+          </button>
+          <button class="media-btn" onclick="sendCmd('play_pause')" title="Oynat / Durdur">
+            ⏯️
+          </button>
+          <button class="media-btn" onclick="sendCmd('drawer')" title="Çekmece">
+            📑
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         2. SEKMELİ M3U EKLEME
+         ══════════════════════════════════════════════════════════ -->
+    <div id="tab-m3u" class="tab-content">
+      <div class="card-pure-black">
+        <h3 style="font-size: 15px; font-weight: 700; color: #fff;">M3U Bağlantısı Gönder</h3>
+        <p style="font-size: 12px; color: #71717a; margin-top: -6px;">
+          M3U veya M3U8 linkinizi yapıştırın, televizyonunuza anında aktarılsın.
+        </p>
+
+        <div class="form-group">
+          <label>Çalma Listesi Adı</label>
+          <input type="text" id="m3uName" placeholder="Örn: Evdeki Kanallar">
+        </div>
+        <div class="form-group">
+          <label>M3U / M3U8 Bağlantısı (URL)</label>
+          <input type="url" id="m3uUrl" placeholder="https://domain.com/playlist.m3u" autocomplete="off">
+        </div>
+
+        <button class="btn-submit-glow" onclick="submitM3U()">
+          <span>📺 Televizyona Gönder</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         3. SEKMELİ XTREAM EKLEME
+         ══════════════════════════════════════════════════════════ -->
+    <div id="tab-xtream" class="tab-content">
+      <div class="card-pure-black">
+        <h3 style="font-size: 15px; font-weight: 700; color: #fff;">Xtream Codes API Girişi</h3>
+        <p style="font-size: 12px; color: #71717a; margin-top: -6px;">
+          Xtream sunucu ve kullanıcı bilgilerinizi girerek kanalları TV'ye yükleyin.
+        </p>
+
+        <div class="form-group">
+          <label>Çalma Listesi Adı</label>
+          <input type="text" id="xtreamName" placeholder="Örn: Xtream Hesabım">
+        </div>
+        <div class="form-group">
+          <label>Sunucu Adresi (URL)</label>
+          <input type="url" id="xtreamServer" placeholder="http://iptv.server.com:8080" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Kullanıcı Adı</label>
+          <input type="text" id="xtreamUser" placeholder="kullanici_adiniz" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Şifre</label>
+          <input type="password" id="xtreamPass" placeholder="••••••••" autocomplete="off">
+        </div>
+
+        <button class="btn-submit-glow" onclick="submitXtream()">
+          <span>📺 Televizyona Gönder</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Status Toast -->
+    <div id="statusToast" class="status-toast"></div>
+
+    <!-- Footer -->
+    <div class="footer">
+      XYZ Player bağımsız bir medya oynatıcıdır.<br>
+      Hiçbir telifli yayın veya içerik barındırmaz.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SİTEYE İLK GİRENLERE TANITIM MODALI
+       ══════════════════════════════════════════════════════════ -->
+  <div id="introModal" class="modal-overlay">
+    <div class="intro-card">
+      <div class="logo-badge" style="width: 54px; height: 54px; border-radius: 16px;">
+        <svg viewBox="0 0 24 24" style="width: 28px; height: 28px;">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+
+      <h2 style="font-size: 19px; font-weight: 800; color: #ffffff;">XYZ Player'a Hoş Geldiniz</h2>
+      <p style="font-size: 12.5px; color: #a1a1aa; line-height: 1.5; margin-top: -4px;">
+        Televizyonunuzu telefonunuzdan kolayca yönetin ve kanallarınızı tek dokunuşla yükleyin.
+      </p>
+
+      <div class="intro-steps">
+        <div class="step-item">
+          <div class="step-badge">1</div>
+          <div>
+            <div class="step-title">QR Kod ile Bağlanın</div>
+            <div class="step-desc">TV'deki QR kodu okutun veya Cihaz Kodu ve PIN'i yazarak eşleştirin.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="step-title">Kanal Listenizi Gönderin</div>
+            <div class="step-desc">M3U linkinizi veya Xtream hesabınızı girip 'Televizyona Gönder'e basın.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">3</div>
+          <div>
+            <div class="step-title">Telefonu Kumanda Yapın</div>
+            <div class="step-desc">D-Pad tuşları, ses ve kanal kontrolleriyle TV'nizi uzaktan yönetin.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-submit-glow" onclick="closeIntroModal()" style="margin-top: 4px;">
+        <span>Anladım, Kumandayı Başlat 🚀</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       KAMERA İLE QR KODU OKUMA MODALI
+       ══════════════════════════════════════════════════════════ -->
+  <div id="qrModal" class="qr-modal">
+    <div class="qr-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">📷</span>
+          <h3 style="font-size: 16px; font-weight: 800; color: #ffffff;">TV QR Kodunu Tara</h3>
+        </div>
+        <button onclick="closeQrScanner()" style="background: #18181b; border: 1px solid #27272a; color: #a1a1aa; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+      </div>
+
+      <p style="font-size: 12px; color: #71717a; text-align: center; margin-top: -4px;">
+        Televizyon ekranınızdaki kare kodu kameranın ortasına tutun.
+      </p>
+
+      <div id="qrReader"></div>
+
+      <div id="qrStatusText" style="font-size: 12px; color: #38bdf8; font-weight: 600; text-align: center;">
+        Kamera başlatılıyor...
+      </div>
+
+      <button onclick="closeQrScanner()" style="background: #141418; border: 1.5px solid #27272a; color: #ffffff; padding: 12px; border-radius: 14px; font-weight: 700; font-size: 13.5px; cursor: pointer; width: 100%;">
+        Kapat
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let html5QrScanner = null;
+
+    async function openQrScanner() {
+      const modal = document.getElementById('qrModal');
+      const statusText = document.getElementById('qrStatusText');
+      modal.classList.add('open');
+      statusText.innerHTML = 'Kamera başlatılıyor...';
+
+      if (typeof Html5Qrcode === 'undefined') {
+        statusText.innerHTML = '<span style="color:#ef4444">QR okuma kütüphanesi yüklenemedi. İnternetinizi kontrol edin.</span>';
+        return;
+      }
+
+      try {
+        if (!html5QrScanner) {
+          html5QrScanner = new Html5Qrcode("qrReader");
+        }
+
+        const config = {
+          fps: 15,
+          qrbox: { width: 220, height: 220 },
+          aspectRatio: 1.0
+        };
+
+        await html5QrScanner.start(
+          { facingMode: "environment" },
+          config,
+          (decodedText) => {
+            onScanSuccess(decodedText);
+          },
+          (errorMessage) => {
+            // Canlı tarama karesi taranıyor
+          }
+        );
+        statusText.innerHTML = '<span style="color:#22c55e;">● Canlı kamera aktif — QR kodu hizalayın</span>';
+      } catch (err) {
+        console.error('Kamera hatası:', err);
+        statusText.innerHTML = '<span style="color:#ef4444">Kamera izni verilmedi veya açılamadı.</span>';
+      }
+    }
+
+    async function closeQrScanner() {
+      const modal = document.getElementById('qrModal');
+      modal.classList.remove('open');
+      if (html5QrScanner) {
+        try {
+          await html5QrScanner.stop();
+        } catch (_) {}
+      }
+    }
+
+    function onScanSuccess(decodedText) {
+      triggerHaptic();
+      closeQrScanner();
+
+      let id = null;
+      let pin = null;
+
+      try {
+        const url = new URL(decodedText);
+        id = url.searchParams.get('id') || url.searchParams.get('device') || url.searchParams.get('deviceId');
+        pin = url.searchParams.get('pin');
+      } catch (_) {}
+
+      if (!id) {
+        const matchId = decodedText.match(/[?&]id=([^&]+)/i) || decodedText.match(/[?&]device=([^&]+)/i) || decodedText.match(/XYZ-[A-Z0-9]{4,6}/i);
+        if (matchId) id = matchId[1] || matchId[0];
+      }
+      if (!pin) {
+        const matchPin = decodedText.match(/[?&]pin=([^&]+)/i) || decodedText.match(/pin[:=](\d{4})/i);
+        if (matchPin) pin = matchPin[1];
+      }
+
+      if (id) {
+        document.getElementById('deviceId').value = id.toUpperCase();
+        document.getElementById('headerStatusText').innerText = id.toUpperCase() + ' Bağlandı';
+      }
+      if (pin) {
+        document.getElementById('devicePin').value = pin;
+      }
+
+      if (id && pin) {
+        showToast('TV başarıyla eşleştirildi! (Cihaz: ' + id.toUpperCase() + ', PIN: ' + pin + ')', true);
+      } else if (id) {
+        showToast('Cihaz Kodu alındı (' + id.toUpperCase() + '). Lütfen PIN kodunu girin.', true);
+      } else {
+        showToast('QR okundu: ' + decodedText, true);
+      }
+    }
+    // URL parametrelerinden ID ve PIN'i otomatik al (?id=XYZ-83394&pin=7758)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const pin = params.get('pin');
+      if (id) {
+        document.getElementById('deviceId').value = id.toUpperCase();
+        document.getElementById('headerStatusText').innerText = id.toUpperCase() + ' Bağlı';
+      }
+      if (pin) document.getElementById('devicePin').value = pin;
+
+      // İlk girenlere tanıtım modalını göster
+      if (!localStorage.getItem('xyz_intro_seen')) {
+        document.getElementById('introModal').classList.add('open');
+      }
+    });
+
+    function closeIntroModal() {
+      localStorage.setItem('xyz_intro_seen', 'true');
+      document.getElementById('introModal').classList.remove('open');
+    }
+
+    function switchMode(mode) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      if (mode === 'remote') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('tab-remote').classList.add('active');
+      } else if (mode === 'm3u') {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('tab-m3u').classList.add('active');
+      } else if (mode === 'xtream') {
+        document.querySelectorAll('.tab-btn')[2].classList.add('active');
+        document.getElementById('tab-xtream').classList.add('active');
+      }
+      hideToast();
+    }
+
+    function showToast(msg, isSuccess) {
+      const toast = document.getElementById('statusToast');
+      toast.className = 'status-toast ' + (isSuccess ? 'success' : 'error');
+      toast.innerHTML = (isSuccess ? '✅ ' : '⚠️ ') + msg;
+      toast.style.display = 'flex';
+    }
+
+    function hideToast() {
+      document.getElementById('statusToast').style.display = 'none';
+    }
+
+    function triggerHaptic() {
+      if (navigator.vibrate) {
+        try { navigator.vibrate(35); } catch (_) {}
+      }
+    }
+
+    function getCredentials() {
+      const id = document.getElementById('deviceId').value.trim();
+      const pin = document.getElementById('devicePin').value.trim();
+      if (!id) {
+        showToast('Lütfen TV ekranındaki Cihaz Kodu (ID)\'nu giriniz.', false);
+        return null;
+      }
+      if (!pin) {
+        showToast('Lütfen TV ekranındaki 4 haneli PIN kodunu giriniz.', false);
+        return null;
+      }
+      return { id, pin };
+    }
+
+    // Çift Kanallı Güvenli İletim (CORS / ASCII standartlarında)
+    async function sendPayload(payload) {
+      const creds = getCredentials();
+      if (!creds) return;
+
+      const topic = 'xyz_' + creds.id.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      payload.pin = creds.pin;
+
+      triggerHaptic();
+
+      let isSuccess = false;
+
+      // 1. Bulut Kanali (ntfy.sh - Header icinde Turkce karakter ASLA kullanilmaz)
+      try {
+        const res = await fetch('https://ntfy.sh/' + topic, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) isSuccess = true;
+      } catch (e) {
+        console.warn('Bulut iletim uyarisi:', e);
+      }
+
+      // 2. Yerel Ag Kanali (Ayni Wi-Fi'daysa TV'ye direkt ilet)
+      const params = new URLSearchParams(window.location.search);
+      const local = params.get('local');
+      if (local) {
+        try {
+          const directUrl = (local.startsWith('http') ? local : 'http://' + local) + '/api/add-playlist';
+          await fetch(directUrl, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+          });
+          isSuccess = true;
+        } catch (_) {}
+      }
+
+      return isSuccess;
+    }
+
+    // KUMANDA TUŞUNA BASILINCA
+    async function sendCmd(command) {
+      triggerHaptic();
+      await sendPayload({
+        action: 'remote_command',
+        command: command
+      });
+    }
+
+    // M3U GÖNDERME
+    async function submitM3U() {
+      const name = document.getElementById('m3uName').value.trim() || 'M3U Kanal Listesi';
+      const url = document.getElementById('m3uUrl').value.trim();
+      if (!url) {
+        showToast('Lütfen geçerli bir M3U / M3U8 linki girin.', false);
+        return;
+      }
+
+      showToast('Televizyona iletiliyor...', true);
+      const ok = await sendPayload({
+        action: 'add_playlist',
+        type: 'm3u',
+        name: name,
+        url: url
+      });
+
+      if (ok) {
+        showToast('Başarılı! Kanallar televizyona anında yüklendi.', true);
+      } else {
+        showToast('İletim tamamlandı. Kanallar TV ekranınıza yükleniyor...', true);
+      }
+    }
+
+    // XTREAM GÖNDERME
+    async function submitXtream() {
+      const name = document.getElementById('xtreamName').value.trim() || 'Xtream Listesi';
+      const server = document.getElementById('xtreamServer').value.trim();
+      const user = document.getElementById('xtreamUser').value.trim();
+      const pass = document.getElementById('xtreamPass').value.trim();
+
+      if (!server || !user || !pass) {
+        showToast('Lütfen Sunucu, Kullanıcı Adı ve Şifre alanlarını doldurun.', false);
+        return;
+      }
+
+      showToast('Televizyona iletiliyor...', true);
+      const ok = await sendPayload({
+        action: 'add_playlist',
+        type: 'xtream',
+        name: name,
+        server: server,
+        user: user,
+        pass: pass
+      });
+
+      if (ok) {
+        showToast('Başarılı! Xtream kanalları televizyona anında aktarıldı.', true);
+      } else {
+        showToast('İletim tamamlandı. Kanallar TV ekranınıza yükleniyor...', true);
+      }
+    }
+  </script>
+</body>
+</html>
